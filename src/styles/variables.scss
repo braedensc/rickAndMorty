@@ -1,1 +1,9 @@
 $primary-color: red;
+
+$spacing: 6px;    
+
+@function spacing($n){ 
+    @return $n * $spacing}
+
+
+

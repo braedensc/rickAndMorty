@@ -1,0 +1,19 @@
+@import 'src/styles/common.scss';
+
+
+.cardContainer {
+
+}
+
+.characterStatusText {
+    font-weight: bold;
+    &.__alive {
+        color: green;
+    }
+    &.__dead {
+        color: red;
+    }
+    &.__unknown {
+        color: purple;
+    }
+}

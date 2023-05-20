@@ -1,3 +1,3 @@
-import CardsPage from './CardsPage';
+import CharactersPage from './CharactersPage/CharactersPage';
 
-export { CardsPage };
+export { CharactersPage };
