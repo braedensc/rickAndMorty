@@ -17,41 +17,53 @@ const CharactersPage: React.FC<Props> = () => {
 
     const [characters, setCharacters] = useState<Character[] | undefined>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    console.log(characters);
+    const [pageCount, setPageCount] = useState<number>(10);
+    console.log('all characters' , characters);
+
+   
 
     useEffect(() => {
-        const getData = async (): Promise<Character[] | undefined> => {
-            let response;
-            try {
-                response = await getRickAndMortyCharacters();
-            } catch (err) {
-                console.log(err);
-            }
-            console.log(response);
-
-            setCharacters(response?.data?.results);
-            setLoading(false);
-            return response?.data?.results;
-        };
-        setLoading(true);
-        getData()
+        onPageChange(1)
             .catch(console.error);
     }, []);
+
+    const onPageChange = async (pageNumber: number): Promise<void> => {
+        let response;
+        try {
+            response = await getRickAndMortyCharacters(pageNumber);
+        } catch (err) {
+            console.log(err);
+        }
+        console.log('RES',response);
+        setPageCount(response?.data?.info?.pages ?? 10);
+        setCharacters(response?.data?.results);
+        setLoading(false);
+    };
+
 
 
     return (
         <div className = {styles.characterPageContainer}>
-            <div className={styles.paginationContainer}>
-                <Pagination count={10}  color="standard" size='large' sx={{
-                    button:{color: '#ffffff'}
-                }}></Pagination>
-            </div>
+           
             <div className={styles.characterGridContainer}>
                 {characters?.map((char: Character) => {
                     return (
                         <CharacterCard key={char.id} character={char}/>
                     );
                 })}
+            </div>
+            <div className={styles.paginationContainer}>
+                <Pagination 
+                    count={pageCount}  
+                    color="standard"
+                    size='large' 
+                    sx={{
+                        button:{color: '#ffffff'}
+                    }}
+                    onChange={(_event: React.ChangeEvent<unknown>, page: number)  => {
+                        onPageChange(page).catch(console.error);
+                    }}
+                ></Pagination>
             </div>
 
         </div>
