@@ -16,9 +16,10 @@ export const getRickAndMortyCharactersByQuery =async (queries: FilterQuery[], pa
         const term = {page};
         console.log('term', term);
         promises.push(getCharacters(term));
-    } else {
+    } else { 
         for (let i = 0; i < queries.length; i++) {
-            const term = {...queries[i], page};
+            const querySanitized: FilterQuery = Object.fromEntries(Object.entries(queries[i]).filter(([_, v]) => v !== ''));  
+            const term = {...querySanitized, page};
             console.log('term', term);
             promises.push(getCharacters(term));
         }
