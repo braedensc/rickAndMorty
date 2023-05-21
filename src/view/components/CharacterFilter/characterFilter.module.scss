@@ -1,0 +1,14 @@
+@import'src/styles/common.scss';
+
+.characterFiltersContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: spacing(6);
+    margin-bottom: spacing(6)
+}
+
+.characterFilter {
+    max-width: 100%;
+    outline-width: 12px;
+    outline-color: black;
+}

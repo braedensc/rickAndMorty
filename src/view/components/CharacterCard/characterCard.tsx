@@ -30,7 +30,7 @@ const CharacterCard: React.FC<Props> = ({character}) => {
             <div>
                 <div>{character?.name}</div>
                 <img src={character?.image}></img>
-                <div className={classNames(styles.characterStatusText,statusClass)}>{character?.status !== undefined ? (character.status).toUpperCase() : ''}</div>
+                <div className={classNames(styles.characterStatusText, statusClass)}>{character?.status !== undefined ? (character.status).toUpperCase() : ''}</div>
             </div>
         </Paper>
 
