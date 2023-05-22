@@ -12,7 +12,7 @@ interface Props {
     filterOptions: string[]
 }
 
-
+// TODO: allow <FilterDropdown/> and <FilterSearch/> to be passed as props and replace the one's below, if given
 const FilterPicker: React.FC<Props> = ({onSelect, filterQuery, filterOptions=[]}) => {
     const [searchParam, setSearchParam] = useState<string>('name');
     const [searchValue, setsearchValue] = useState<string>('');
@@ -22,7 +22,6 @@ const FilterPicker: React.FC<Props> = ({onSelect, filterQuery, filterOptions=[]}
     const [autoCompleteKey, setAutocompleteKey] = useState<number>(0);
 
     const handleDropdownSelect = (value: string): void => {
-        console.log('dropdown change', value);
         setSearchParam(value);
         setsearchValue('');
         setAutocompleteKey(autoCompleteKey+1);

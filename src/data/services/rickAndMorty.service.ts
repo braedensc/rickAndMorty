@@ -8,33 +8,32 @@ export const getRickAndMortyCharacters = async (page: number = 1): Promise<ApiRe
 };
 
 
-export const getRickAndMortyCharactersByQuery =async (queries: FilterQuery[], page: number = 1): Promise<Array<ApiResponse<Info<Character[]>>>> => {
-    console.log('preparning to fech chars', queries);
+export const getRickAndMortyCharactersByQuery = async (queries: FilterQuery[], page: number = 1):  Promise<Array<PromiseSettledResult<Awaited<ApiResponse<Info<Character[]>>>>>> => {
 
     const promises = [];
     if (queries.length === 0) {
         const term = {page};
-        console.log('term', term);
         promises.push(getCharacters(term));
     } else { 
         for (let i = 0; i < queries.length; i++) {
+            // below removes queries that are just empty strings, otherwise they mess up the request
+            // shamelessly stolen from the internet
             const querySanitized: FilterQuery = Object.fromEntries(Object.entries(queries[i]).filter(([_, v]) => v !== ''));  
             const term = {...querySanitized, page};
-            console.log('term', term);
             promises.push(getCharacters(term));
         }
     }
 
 
-    const res: any = Promise.allSettled(promises)
+    const res: Promise<Array<PromiseSettledResult<Awaited<ApiResponse<Info<Character[]>>>>>> = Promise.allSettled(promises)
         .then((response) => {
-            console.log('pormises all res',response);
             return response;
         })
         .catch((error)  => {
             console.log(error);
+            return error;
         });
-    return res;
+    return await res;
 
 };
 

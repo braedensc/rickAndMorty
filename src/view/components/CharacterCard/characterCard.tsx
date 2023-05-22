@@ -11,10 +11,6 @@ interface Props {
 
 
 const CharacterCard: React.FC<Props> = ({character}) => {
-    // const [characters, setCharacters] = useState<any[]>([]);
-    // const [loading, setLoading] = useState<boolean>(false);
-    console.log(character);
-
 
     const statusClass = {
         [styles.__alive]: character.status === 'Alive',

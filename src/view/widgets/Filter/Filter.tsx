@@ -13,7 +13,8 @@ interface Props {
     filterId: number;
 }
 
-
+// made to be as re-usable as possible
+// TODO: allow custom <FilterDropdown/> and <FilterSearch/> to be passed as optional props, so that they can be extended/overwritten if needed
 const Filter: React.FC<Props> = ({onSelect, filterOptions= [], filterId}) => {
 
     const [filterQuery, setfilterQuery] = useState<FilterQuery>({});
@@ -23,7 +24,6 @@ const Filter: React.FC<Props> = ({onSelect, filterOptions= [], filterId}) => {
         setfilterQuery(value);
         onSelect(value, filterId);
     };
-
     return (
         <>
             <div className={styles.filterPickerContainer}>
